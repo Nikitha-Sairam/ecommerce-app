@@ -125,14 +125,13 @@ const Products = () => {
               className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
             >
               <ProductCard
-                product={product}
-                isOutOfStock={false}
+                isOutOfStock={false} //can give the value from the data
                 name={product.title}
                 image={product.image}
                 price={product.price}
                 id={product.id}
                 variants={VARIANTS}
-                onAddToCart={addProduct}
+                onAddToCart={() => addProduct(product)}
                 selectedVariant={selectedVariant}
                 onSelectVariantChanged={setSelectedVariant}
               />

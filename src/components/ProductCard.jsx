@@ -5,7 +5,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import toast from "react-hot-toast";
 
 const ProductCard = ({
-  product,
   isOutOfStock,
   name,
   image,
@@ -32,19 +31,23 @@ const ProductCard = ({
 
         {variants && variants.length > 0 && (
           <div className="card-body">
-            <select
-              id={`variant-select-${id}`}
-              className="form-select"
-              onChange={handleVariantChange}
-              value={selectedVariant?.id || ""}
-            >
-              {variants.map((variant) => (
-                <option key={variant.id} value={variant.id}>
-                  {variant.name || variant.title || `Variant ${variant.id}`} - $
-                  {variant.price || price}
-                </option>
-              ))}
-            </select>
+            {variants.length === 1 ? (
+              <div className="label">{selectedVariant}</div>
+            ) : (
+              <select
+                id={`variant-select-${id}`}
+                className="form-select"
+                onChange={handleVariantChange}
+                value={selectedVariant?.id || ""}
+              >
+                {variants.map((variant) => (
+                  <option key={variant.id} value={variant.id}>
+                    {variant.name || variant.title || `Variant ${variant.id}`} -
+                    ${variant.price || price}
+                  </option>
+                ))}
+              </select>
+            )}
           </div>
         )}
 
@@ -55,7 +58,7 @@ const ProductCard = ({
             className="btn btn-dark m-1"
             onClick={() => {
               toast.success("Added to cart");
-              onAddToCart(product);
+              onAddToCart();
             }}
           >
             Add to Cart
